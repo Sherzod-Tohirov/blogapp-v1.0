@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    margin: 0;
+}
+
+:root {
+    --toastify-color-success: #07bccc;
+}
+
+.Toastify__progress-bar--success  {
+    @apply bg-teal-500; 
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.4);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-teal-500;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-slate-200;
+}
+
+.category-select {
+    background: #fff url("../public/arrdown.svg") no-repeat right 12px center;
+    background-size: 25px;
+    color: #9ca3af;
+
+}
+
+.category-select option {
+    color: #9ca3af;
+}
+
+.animated-thumbup {
+    position: relative;
+    animation: thumbsup 0.6s ease-in-out;
+    animation-iteration-count:initial;
+    fill: rgb(231, 61, 61) !important;
+}
+
+
+@keyframes thumbsup {
+    0% {
+        top: 0;
+        filter: drop-shadow(1px 1px 10px #f37474);
+    }
+
+    50% {
+        top:-8px;
+        filter: drop-shadow(2px 2px 15px #f12525)
+    }
+
+    100% {
+        top: 0;
+    }
+}

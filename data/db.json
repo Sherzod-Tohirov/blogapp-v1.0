@@ -1,0 +1,247 @@
+{
+  "users": [
+    {
+      "firstname": "Ali",
+      "lastname": "Sobirov",
+      "email": "ali@mail.ru",
+      "avatar": "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
+      "password": "$2a$10$rttUAP/fALgFbViftsV0rO7AojCPHYNFmDVgbhxsdFwiKAw5oAUE2",
+      "id": 2
+    },
+    {
+      "email": "davron@mail.ru",
+      "password": "$2a$10$ruTyeXBgdHXu9R9E1IE6YOqdAbryHUgs72QkCEsBR6oys5ZS3GPPC",
+      "firstname": "davron",
+      "lastname": "berdiyev",
+      "avatar": "",
+      "likes": [],
+      "id": 3
+    },
+    {
+      "email": "john.doe@gmail.com",
+      "password": "$2a$10$VWv.cK1n/C.cXOx2VEl2temGgIeJ0I66uPFixTCwueUkF/4l2Zjba",
+      "firstname": "John",
+      "lastname": "Doe",
+      "avatar": "https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg",
+      "likes": [],
+      "id": 4
+    },
+    {
+      "email": "john.doe01@gmail.com",
+      "password": "$2a$10$aW70dMuS57n7xCrIf.XD0.F.kusmBrdi03t74JT/5xzfs/BOcDp.a",
+      "firstname": "John",
+      "lastname": "Doe",
+      "avatar": "",
+      "likes": [],
+      "id": 5
+    }
+  ],
+  "posts": [
+    {
+      "title": "Currying",
+      "body": "At its core, currying is a functional programming technique that involves breaking down a function that takes multiple arguments into a series of functions that take one argument each. This creates a chain of functions, where each function returns another function until the final result is achieved.",
+      "category": "Technology",
+      "image": "https://miro.medium.com/v2/resize:fit:557/1*aTHu_4UDNiKH-0S_fu-Ddg.png",
+      "date": "March 6 2024y 22:24",
+      "likes": [
+        {
+          "user_id": 2,
+          "user_firstname": "Ali",
+          "user_lastname": "Sobirov",
+          "user_email": "ali@mail.ru",
+          "user_avatar": "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
+        },
+        {
+          "user_id": 3,
+          "user_firstname": "davron",
+          "user_lastname": "berdiyev",
+          "user_email": "davron@mail.ru",
+          "user_avatar": ""
+        }
+      ],
+      "comments": [],
+      "user_id": 2,
+      "id": 3
+    },
+    {
+      "title": "First Class Functions in Js",
+      "body": "A programming language is said to have First-class functions if functions in that language are treated like other variables. So the functions can be assigned to any other variable or passed as an argument or can be returned by another function.",
+      "category": "Technology",
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAmVBMVEXw208yMzDw2kvz433x3Vjz4nX14FAvMTDz3U8aIC5BQDLSwUr44lAqLC8sLi8nKi9zbDkeIy4YHi4kJy/fzEzq1k6ypETl0U3KuUg5OTGdkUBPTDSJfz01NjF5cTq9rkammUJHRTNfWjYUGy6EezyUiT/FtUdXUzVqZDgNFy25qkWekkCom0JFRDNMSjReWTb16JcBEi1tZjjKeR7KAAAIpUlEQVR4nO2c2XbjNgyG5U5LUhZFmVq9Rd4i2+Nsbd7/4Sp5MoltgRS95RBz+F+0F+NA+sQVIAjvxx+uf72//nD94/3hcoT45QjxyxHilyPEL0eIX44QvxwhfjlC/HKE+OUI8csR4pcjxC9HiF+OEL8cIX45QvxyhPjlCPHLEeKXI8QvR4hfjhC/HCF+OUL8coT45QjxyxHilyPEL0eIX44QvxwhfjlC/HKE+OUI8csR4pcjxC9HiF+OEL8cIX45QvxyhPjlCPHLEeKXI8QvR4hfjhC/HCF+OUL8coT4hYOQEcI5J+zz/2f87XcRckhGL8oIz4K8KpeTxUt/MXl7n85nKasxDZ/8TYSsHLS1TTvfsm60oHqL4iQKhaCNhIgS6Y8GecqJ0aO/iZCMorCln0EHIeNp1fcT0WuJholc7jwTxu8i7NP2a/odhDwtZQL83YeEHM0NGO0lJNmjHyrxfrVk8rDrHMzWEvIdjfR8e0Z/m3U0o6WEzCtjdf88VCSGXPtoOwlZNkmM+PbNmGsRrSRkxahjBB5p9aRDtJGQFX1ggdDIn2sQrSScnNOC+1bcqREtJOSl8Rj8lAyUM6p9hCT3zwbs0YdM9Wj7CDPNNkat6F3VT60j5I8GCz2gOFf0U9sIWSovAqz34op+ahvhpU3Y6yUl3Ii2EWbKeZTWjmHtJqoGqVwM4bXHMkKSKzqpkA/v1dO4KhcJNBMJv1KFNiwj5FtwN1O7EEPGCWnCNOnTqNXO/iZQLvmWEWbgKKTR7MsNZMSr5JG1MJprojZ2EbI1tNrT8KSF+PCgp9btm+LZeZMnaKLxZ6ezJAnEb3tRL9e7+XYR8hLYc4tlu4nIMP7VgKsBLh+fb4CJRq6hrc+8mXST0Vrv4HvWEUI/E+BmhS+FiKfoYm2s1/4ZfQUpWPrzVb1EHMguQg9qwg3MQWaeUWDffkI6UbSU4cGFZYRQLx1d92i7CMkI+JnsPsDRyS5C/gr8LBmbHTIpZBkhtPGm9KpHW0YI+r9RabIqqGQXIXkGHWBZXYFoFyEbwpFEvzRdG9qyi1DhH9azzWJodurflmWE9W4TRhRxmV7GaBmhYiA2iuTjRYyWEbJCE9KPZBkYJmAcyDJCj7/rzp1C/23GzmS0jZB9OO8qCb//lJ3VWW0jVM81v0UT+RicwWgdIQtWesJakb9cE9POah1hvXMzOCAV/iI3HJD2EXqe0Sk+lf1nI0YLCVlgdghM5Sg36KsWEnrc9JybysUaZ9YXH3fPNh+MHSF9z1LCGtE4WyGUY30yrZ2EHp+vjPMV5AbRycyX+DoyzosSUpfZZiuhR1Lz5L1ePFXPqdYSeoxUvnEzyq0yf99ewrqnBhNpOhqTjSrOYTNh3YzPwrSrRhuMhE2ydxUZJtgkAxz5NC3xYqpL2D80NwZnVOsJPcazqmc0Hn0wZ8h+wlo8e+4bzKviBS1h/fd8vZVRV0NKqJ8iIdzfEJqGHQOSQkf+aAgbRm/+ou+s0EEcIsLGDJttdIz0oW0RF2EzIIfbWM3ot3NvsBE2nTVY+qrxGLaPGvERNoyzdgLmRzdtpzVgJKzNeY+KIEDbJk7CehPwDCMmrZR9rISqgFzU8oXREiqyGtqpmngJvUwANmkfDWE3PNyIIZZeyg3u6q+hmwv+fedSZTgITFiLlYTEq/5T3WP6elgKzTXx6eb7poQ8Vd57hc6ufUU7MZ4/JJQWXa2YQUbvScjYk5woPnwGfW6/AM3wYNLsykIggf3E6PcSMj58lT0f7lvwgVkCJXDzovzwHhRxly+jcC89/dmtCOsXW4kmjxBMOyc5sI+EXB3ijeXnDBnPtIhkBs000X1mGkaew18vBucRgvcoaKtL11vq/sGnoJrbvY3RAWT0PushH34Fp+PWBZdaGZDd3AsHJy9Tu0XHhRRooqmXwAKoCe+yp2lKdHz5pFS0Z0g4lyupyIkZeera0kR9DZ1At0/usS/96qC/v2I/O0Fk4P6qJ2fs0MxcQFuUuILPPxkZwKmoN/ctgNMT8ZIePYV5b2Am12GGOktfFEHf5BXKu+TFEvaB22nv1xEed9BPxDD/SrBjPN3Alwr7R99hoQq+CH87PK4K1QTdBJz+RttB4asIWQ7XkKH+JC+aqlycZMOyNbp+KZoeDjGyVicnCL9fDbPa3v4SaW1ySlWB02Oj1xPygepcSMjkdTsYbCdCWSfoJCzGt5qkRBr54eR9Wo2r6aA2qQ5+r9rbxuvaUHd5noowBGeYj38eHb8LK5TXtH/bi6IkikJdSFgAN4iuG4d8en6Rjg+drBXNvkefd2kiubt9zJteUsRi/zIt1+GSmibHEgtgt3ElIdldUIikUfQILOVn16U5Uby+PeHFHz4BvD9WPJxXW+hE0ek28CaEhrmSpwJP+jwSdMw2Wilq1Fy/awsuqCcj4JuvNaJ5JlRL/hA0en0bErBKgFY0UsWZSNq7FDFWpH7dwLfgO8PicZ9aQR7WB2KxuGxgr1T1vm7hH/KZcerSXvGzxndnbHBJnShVC97MA9buNE5eZqUDbKzl8txVIwzVlQduE8Ugxca0+JGI9NGXBjHdKo9AwW/mvxV3z01kpFK4ECeSk7Q7+byJ15h3/Ch81mUJ3yya2ARZOhmj5Mms/i9hRjlCzbQsp5oG9G4ZEWZ8vdGWVKVJ8lgYX3clbLfpTGgTkk67ruzdMqrP+LBMJLwtqT28UVWcdSWL8KB6iROVB0ZD6S/z7lteNz6Z4dluMPKT6OC1aFPVWL5Oh8S4QPWnOcLT+ftIyuTI06w9z9piv8wLk9uINz9dI9wL8umyH8Wx7/v1f3qTwXiWkguv8daQXjobl5tRsjdYW0xGm3JsXtL7HueH+8rpxCvSWhkj5xZRb9trbNRfaG+wyNh5ZdnveULK2HVkoMGzLeKoq3+NHCF+OUL8coT45QjxyxHilyPEL0eIXzXh33+4fvwPWEmcNW2vumIAAAAASUVORK5CYII=",
+      "date": "March 6 2024y 22:27",
+      "likes": [
+        {
+          "user_id": 2,
+          "user_firstname": "Ali",
+          "user_lastname": "Sobirov",
+          "user_email": "ali@mail.ru",
+          "user_avatar": "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
+        },
+        {
+          "user_id": 3,
+          "user_firstname": "davron",
+          "user_lastname": "berdiyev",
+          "user_email": "davron@mail.ru",
+          "user_avatar": ""
+        },
+        {
+          "user_id": 5,
+          "user_firstname": "John",
+          "user_lastname": "Doe",
+          "user_email": "john.doe01@gmail.com",
+          "user_avatar": ""
+        }
+      ],
+      "comments": [],
+      "user_id": 2,
+      "id": 4
+    },
+    {
+      "title": "Promises",
+      "body": "A Promise is a proxy for a value not necessarily known when the promise is created. It allows you to associate handlers with an asynchronous action's eventual success value or failure reason. This lets asynchronous methods return values like synchronous methods: instead of immediately returning the final value, the asynchronous method returns a promise to supply the value at some point in the future.\n\nA Promise is in one of these states:\n\npending: initial state, neither fulfilled nor rejected.\nfulfilled: meaning that the operation was completed successfully.\nrejected: meaning that the operation failed.",
+      "category": "Technology",
+      "image": "data:image/png;base64,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",
+      "date": "March 0 2024y 11:48",
+      "likes": [
+        {
+          "user_id": 2,
+          "user_firstname": "Ali",
+          "user_lastname": "Sobirov",
+          "user_email": "ali@mail.ru",
+          "user_avatar": "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
+        },
+        {
+          "user_id": 3,
+          "user_firstname": "davron",
+          "user_lastname": "berdiyev",
+          "user_email": "davron@mail.ru",
+          "user_avatar": ""
+        },
+        {
+          "user_id": 5,
+          "user_firstname": "John",
+          "user_lastname": "Doe",
+          "user_email": "john.doe01@gmail.com",
+          "user_avatar": ""
+        }
+      ],
+      "comments": [],
+      "user_id": 2,
+      "id": 5
+    },
+    {
+      "title": "IIFE or SIF in js",
+      "body": "A JavaScript IIFE (Immediately Invoked Function Expression) is a function that runs the moment it is invoked or called in the JavaScript event loop. Having a function that behaves that way can be useful for several use cases. In this tutorial, you will learn about the benefits of using an IIFE (pronounced “iffy”) and when to use them instead of traditional functions. You will also write tests for your functions and integrate continuous integration/continuous deployment (CI/CD) for these tests.",
+      "category": "Technology",
+      "image": "https://ctf-cci-com.imgix.net/7cszIlOv5OYPPTdpNnXxkY/4714c748345253e4da229ac16963fc41/2022-11-22-iifes-work.png?ixlib=rb-3.2.1&auto=format&fit=max&q=60&ch=DPR%2CWidth%2CViewport-Width%2CSave-Data&w=898",
+      "date": "March 0 2024y 11:50",
+      "likes": [
+        {
+          "user_id": 2,
+          "user_firstname": "Ali",
+          "user_lastname": "Sobirov",
+          "user_email": "ali@mail.ru",
+          "user_avatar": "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
+        },
+        {
+          "user_id": 3,
+          "user_firstname": "davron",
+          "user_lastname": "berdiyev",
+          "user_email": "davron@mail.ru",
+          "user_avatar": ""
+        },
+        {
+          "user_id": 5,
+          "user_firstname": "John",
+          "user_lastname": "Doe",
+          "user_email": "john.doe01@gmail.com",
+          "user_avatar": ""
+        }
+      ],
+      "comments": [],
+      "user_id": 2,
+      "id": 6
+    },
+    {
+      "id": 7,
+      "title": "Intersection Observer",
+      "body": "The Intersection Observer API provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport.\n\nHistorically, detecting visibility of an element, or the relative visibility of two elements in relation to each other, has been a difficult task for which solutions have been unreliable and prone to causing the browser and the sites the user is accessing to become sluggish. As the web has matured, the need for this kind of information has grown. Intersection information is needed for many reasons, such as:\n\nLazy-loading of images or other content as a page is scrolled.\nImplementing \"infinite scrolling\" websites, where more and more content is loaded and rendered as you scroll, so that the user doesn't have to flip through pages.\nReporting of visibility of advertisements in order to calculate ad revenues.\nDeciding whether or not to perform tasks or animation processes based on whether or not the user will see the result.",
+      "category": "Technology",
+      "image": "data:image/png;base64,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",
+      "date": "March 31 2024y 16:49",
+      "likes": [
+        {
+          "user_id": 2,
+          "user_firstname": "Ali",
+          "user_lastname": "Sobirov",
+          "user_email": "ali@mail.ru",
+          "user_avatar": "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
+        },
+        {
+          "user_id": 3,
+          "user_firstname": "davron",
+          "user_lastname": "berdiyev",
+          "user_email": "davron@mail.ru",
+          "user_avatar": ""
+        },
+        {
+          "user_id": 5,
+          "user_firstname": "John",
+          "user_lastname": "Doe",
+          "user_email": "john.doe01@gmail.com",
+          "user_avatar": ""
+        }
+      ],
+      "comments": [],
+      "user_id": 2
+    },
+    {
+      "title": "React HOC",
+      "body": "A higher-order component (HOC) is an advanced technique in React for reusing component logic. HOCs are not part of the React API, per se. They are a pattern that emerges from React’s compositional nature.\n\nConcretely, a higher-order component is a function that takes a component and returns a new component.",
+      "category": "Technology",
+      "image": "",
+      "date": "April 02 2024y 13:33",
+      "likes": [
+        {
+          "user_id": 5,
+          "user_firstname": "John",
+          "user_lastname": "Doe",
+          "user_email": "john.doe01@gmail.com",
+          "user_avatar": ""
+        }
+      ],
+      "comments": [],
+      "user_id": 3,
+      "id": 8
+    },
+    {
+      "id": 9,
+      "title": "TItle",
+      "body": "jeejgjpergjpeogj",
+      "category": "Technology",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNp5cdaIatjCHPZfk5xC3CqZFjq7znBp7uWfgM6ZBU0A&s",
+      "date": "May 13 2024y 12:10",
+      "user_id": 4
+    },
+    {
+      "title": "ewew",
+      "body": "wewe",
+      "category": "Chemistry",
+      "image": "",
+      "date": "May 13 2024y 13:59",
+      "likes": [],
+      "comments": [],
+      "user_id": 5,
+      "id": 14
+    },
+    {
+      "id": 15,
+      "title": "ewwe",
+      "body": "ewew",
+      "category": "Medicine",
+      "image": "",
+      "date": "May 13 2024y 15:16",
+      "user_id": 5
+    }
+  ]
+}
