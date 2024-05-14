@@ -3,21 +3,41 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { FaThumbsUp } from "react-icons/fa";
+import { FaComment } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
 import { FaRegThumbsDown } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 import { CiCalendar } from "react-icons/ci";
 import { MdNoAccounts } from "react-icons/md";
 import { meContext } from "../../../context/meContext";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   useEditPostMutation,
   useGetPostByIdQuery,
 } from "../../../store/posts/postsApi";
+import { refineTimestamp, userCommentSchema } from "./utils";
+import { notificationContext } from "../../../context/notificationContext";
 export const PostCard = ({ data }) => {
   const { me } = useContext(meContext);
   const [user, setUser] = useState({});
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { isError, isLoading },
+  } = useForm({
+    resolver: yupResolver(userCommentSchema),
+  });
   const post = useGetPostByIdQuery(data?.id);
   const [liked, setLiked] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [showActionBtns, setShowActionBtns] = useState(true);
+  const { setMsg } = useContext(notificationContext);
+  const [mutation, { isLoading: addCommentLoading, isError: addCommentError }] =
+    useEditPostMutation();
+  const date = new Date();
   const itemRef = useRef();
   useEffect(() => {
     if (data?.likes?.find((item) => item.user_id == me.id)) {
@@ -70,7 +90,32 @@ export const PostCard = ({ data }) => {
 
   function handleComment(e) {
     setShowComments((prev) => !prev);
-    console.log(itemRef.current.style);
+  }
+
+  function onCommentSubmit({ user_comment }) {
+    mutation({
+      ...data,
+      comments: data?.comments
+        ? [
+            ...data.comments,
+            {
+              id: window.crypto.randomUUID(),
+              body: user_comment,
+              user_id: me?.id,
+              user_fullname: `${me.firstname} ${me.lastname}`,
+              user_avatar: me?.avatar,
+              replies: [],
+              likes: [],
+              dislikes: [],
+              timestamp: date.getTime(),
+            },
+          ]
+        : [],
+    });
+    reset();
+    if (!addCommentError) {
+      setMsg("Your comment is added successfully !");
+    }
   }
 
   const item = {
@@ -124,7 +169,7 @@ export const PostCard = ({ data }) => {
                 {data?.date}
               </time>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <button
                 className={`flex items-center gap-1 text-lg font-medium hover:opacity-75 transition`}
                 title="positive feedback"
@@ -157,126 +202,137 @@ export const PostCard = ({ data }) => {
                 whileTap={{ scale: 0.89 }}
                 title="write comment"
               >
-                <FaRegComment />{" "}
+                {showComments ? <FaComment /> : <FaRegComment />} {" "}
                 {post?.isSuccess && post?.data?.comments?.length}
               </motion.button>
             </div>
             {showComments ? (
-              <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="flex flex-col py-5 gap-8">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col py-5 gap-8"
+              >
                 <div className="flex">
                   <div className="flex items-start gap-3 w-full">
                     <div className="relative flex">
                       <img
                         className="rounded-full w-8 h-8 object-contain"
-                        src={data?.avatar || "../../../../public/default.webp"}
+                        src={me?.avatar || "../../../../public/default.webp"}
                         alt="Image"
                       />
                       <span className="absolute z-10 flex w-2 h-2 rounded-full  bg-green-400 bottom-0 right-0"></span>
                     </div>
                     <div className="flex flex-col gap-8 w-full">
-                      <form className="flex flex-col gap-4">
+                      <form
+                        className="flex flex-col gap-4"
+                        onSubmit={handleSubmit(onCommentSubmit)}
+                      >
                         <textarea
-                          className="w-full min-h-[70px] max-h-[150px] p-2 font-medium border border-slate-400 rounded-sm"
+                          {...register("user_comment")}
+                          className={`w-full min-h-[70px] max-h-[150px] p-2 font-medium border rounded-sm ${
+                            isError ? "border-red-400" : "border-slate-400"
+                          }`}
                           placeholder="Write your comment..."
+                          onFocus={() => setShowActionBtns(true)}
                         ></textarea>
-                        <div className="flex items-center gap-2 w-full">
-                          <button
-                            type="button"
-                            className="bg-blue-500 text-white rounded-md p-1 px-3"
-                          >
-                            Post it
-                          </button>
-                          <button
-                            type="button"
-                            className="bg-red-400 text-white rounded-md p-1 px-3"
-                          >
-                            Cancel
-                          </button>
-                        </div>
+                        {showActionBtns ? (
+                          <AnimatePresence>
+                            <motion.div className="flex items-center gap-2 w-full">
+                              <motion.button
+                                type="submit"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="bg-blue-500 text-white rounded-md p-1 px-3"
+                              >
+                                Send
+                              </motion.button>
+                              <motion.button
+                                type="button"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="bg-red-400 text-white rounded-md p-1 px-3"
+                                onClick={() => setShowActionBtns(false)}
+                              >
+                                Cancel
+                              </motion.button>
+                            </motion.div>
+                          </AnimatePresence>
+                        ) : (
+                          ""
+                        )}
                       </form>
                       <ul className="list-unstyled flex flex-col gap-6">
-                        <li className="flex items-start gap-4">
-                          <img
-                            className="rounded-full w-8 h-8 object-contain"
-                            src="../../../../public/default.webp"
-                            alt=""
-                          />
-                          <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-4">
-                              <h3 className="m-0 font-medium">John Doe</h3>
-                              <time className="text-slate-300">3h 4m ago</time>
-                            </div>
-                            <p>Something comment</p>
-                            <div className="flex items-center gap-2 mt-3">
-                              <button className="text-slate-500 font-medium">
-                                Reply
-                              </button>
-                              <span className="flex w-1 h-1 rounded-full bg-slate-600"></span>
-                              <button className="flex items-center gap-1 font-medium">
-                                <FaRegThumbsUp
-                                  id="thumbsup-btn"
-                                  data-id={post.isSuccess && post.data.id}
-                                />{" "}
-                                120
-                              </button>
-                              <button className="flex items-center gap-1 font-medium">
-                                <FaRegThumbsDown
-                                  id="thumbsup-btn"
-                                  data-id={post.isSuccess && post.data.id}
-                                />{" "}
-                                0
-                              </button>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-4">
-                          <img
-                            className="rounded-full w-8 h-8 object-contain"
-                            src="../../../../public/default.webp"
-                            alt=""
-                          />
-                          <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-4">
-                              <h3 className="m-0 font-medium">Bob doe</h3>
-                              <time className="text-slate-300">3h 4m ago</time>
-                            </div>
-                            <p>
-                              A Promise is a proxy for a value not necessarily
-                              known when the promise is created. It allows you
-                              to associate handlers with an asynchronous
-                              actions eventual success value or failure reason.
-                              This lets asynchronous methods return values like
-                              synchronous methods: instead of immediately
-                              returning the final value, the asynchronous method
-                              returns a promise to supply the value at some
-                              point in the future. A Promise is in one of these
-                              states: pending: initial state, neither fulfilled
-                              nor rejected. fulfilled: meaning that the
-                              operation was completed successfully. rejected:
-                              meaning that the operation failed.
-                            </p>
-                            <div className="flex items-center gap-2 mt-3">
-                              <button className="text-slate-500 font-medium">
-                                Reply
-                              </button>
-                              <span className="flex w-1 h-1 rounded-full bg-slate-600"></span>
-                              <button className="flex items-center gap-1 font-medium">
-                                <FaRegThumbsUp
-                                  id="thumbsup-btn"
-                                  data-id={post.isSuccess && post.data.id}
-                                />{" "}
-                                120
-                              </button>
-                              <button className="flex items-center gap-1 font-medium">
-                                <FaRegThumbsDown
-                                  id="thumbsup-btn"
-                                  data-id={post.isSuccess && post.data.id}
-                                />{" "}
-                                0
-                              </button>
-                            </div>
-                          </div>
-                        </li>
+                        {data?.comments.length ? (
+                          data?.comments.map((comment) => (
+                            <li
+                              key={comment.id}
+                              className="flex items-start gap-4"
+                            >
+                              <img
+                                className="rounded-full w-8 h-8 object-contain"
+                                src={
+                                  comment.user_id == me.id
+                                    ? me.avatar ||
+                                      "../../../../public/default.webp"
+                                    : comment.user_avatar ||
+                                      "../../../../public/default.webp"
+                                }
+                                alt=""
+                              />
+                              <div className="flex flex-col gap-1">
+                                <div className="flex items-center gap-4">
+                                  <h3 className="m-0 font-medium">
+                                    {me.id == comment.user_id
+                                      ? "Your comment"
+                                      : comment.user_fullname}
+                                  </h3>
+                                  <time className="text-slate-300">
+                                    {refineTimestamp(comment.timestamp)}
+                                  </time>
+                                </div>
+                                <p>{comment.body}</p>
+                                {comment.user_id !== me.id ? (
+                                  <div className="flex items-center gap-2 mt-3">
+                                    <button className="text-slate-500 font-medium">
+                                      Reply
+                                    </button>
+                                    <span className="flex w-1 h-1 rounded-full bg-slate-600"></span>
+                                    <button className="flex items-center gap-1 font-medium">
+                                      <FaRegThumbsUp
+                                        id="thumbsup-btn"
+                                        data-id={post.isSuccess && post.data.id}
+                                      />{" "}
+                                      {comment.likes.length}
+                                    </button>
+                                    <button className="flex items-center gap-1 font-medium">
+                                      <FaRegThumbsDown
+                                        id="thumbsup-btn"
+                                        data-id={post.isSuccess && post.data.id}
+                                      />{" "}
+                                      {comment.dislikes.length}
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="flex items-center gap-3">
+                                    <button className="text-red-300 font-medium">
+                                      Delete
+                                    </button>
+                                    <button className="text-blue-300 font-medium">
+                                      Edit
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+                            </li>
+                          ))
+                        ) : (
+                          <li className="text-lg font-mono select-none opacity-65">
+                            No comments yet #
+                          </li>
+                        )}
                       </ul>
                     </div>
                   </div>
@@ -286,6 +342,15 @@ export const PostCard = ({ data }) => {
               ""
             )}
           </div>
+        </div>
+        <div className="flex justify-center">
+          <button
+            className="text-lg text-slate-600 flex items-center gap-2"
+            onClick={() => setShowComments((prev) => !prev)}
+          >
+            {showComments ? <IoIosArrowUp /> : <IoIosArrowDown />}
+            Show {showComments ? "less" : "more"}
+          </button>
         </div>
       </motion.li>
     </AnimatePresence>

@@ -27,13 +27,21 @@
       "id": 4
     },
     {
-      "email": "john.doe01@gmail.com",
-      "password": "$2a$10$aW70dMuS57n7xCrIf.XD0.F.kusmBrdi03t74JT/5xzfs/BOcDp.a",
       "firstname": "John",
       "lastname": "Doe",
+      "email": "john.doe01@gmail.com",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXQ6bgY9CKNkNam4UZqC_3N4YIWw6CpANApfiNh9hKcg&s",
+      "password": "$2a$10$VNtyRC44krwh5K./7BeuNOZwh4icEqKkLZJs2dvWILKx3ltiLZiKG",
+      "id": 5
+    },
+    {
+      "email": "anvar@gmail.com",
+      "password": "$2a$10$SyST9jpWCvimBgqiQxAn2uWXOUFqng82Qn8yy5OrG/CbBRtSaI0Wu",
+      "firstname": "Anvar",
+      "lastname": "Sobirov",
       "avatar": "",
       "likes": [],
-      "id": 5
+      "id": 6
     }
   ],
   "posts": [
@@ -59,7 +67,38 @@
           "user_avatar": ""
         }
       ],
-      "comments": [],
+      "comments": [
+        {
+          "id": "aebca9ae-cb14-4d51-a58d-898769471201",
+          "body": "Something",
+          "user_id": 5,
+          "user_fullname": "John Doe",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715620205531
+        },
+        {
+          "id": "7999b7cf-c1f8-4d9f-88a2-9f2914be580d",
+          "body": "",
+          "user_id": 5,
+          "user_fullname": "John Doe",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715620685633
+        },
+        {
+          "id": "c2ae7d44-7a56-4573-979f-ea673e3c7a75",
+          "body": "My comment",
+          "user_id": 5,
+          "user_fullname": "John Doe",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715621413958
+        }
+      ],
       "user_id": 2,
       "id": 3
     },
@@ -116,16 +155,21 @@
           "user_lastname": "berdiyev",
           "user_email": "davron@mail.ru",
           "user_avatar": ""
-        },
-        {
-          "user_id": 5,
-          "user_firstname": "John",
-          "user_lastname": "Doe",
-          "user_email": "john.doe01@gmail.com",
-          "user_avatar": ""
         }
       ],
-      "comments": [],
+      "comments": [
+        {
+          "id": "12dc2e82-66f6-4496-aada-038c38c254fe",
+          "body": "Good !",
+          "user_id": 5,
+          "user_fullname": "John Doe",
+          "user_avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXQ6bgY9CKNkNam4UZqC_3N4YIWw6CpANApfiNh9hKcg&s",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715621968303
+        }
+      ],
       "user_id": 2,
       "id": 5
     },

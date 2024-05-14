@@ -48,6 +48,14 @@ export const postsApi = createApi({
         method: "delete",
       }),
     }),
+
+    addComment: builder.mutation({
+      query: (body) => ({
+          url: `posts/${body?.id}`,
+          method: 'put',
+          body
+      })
+    })
   }),
 });
 

@@ -12,6 +12,7 @@ export const SettingsPosts = () => {
   const [addPostModal, setAddPostModal] = useState(false);
   const [editPostModal, setEditPostModal] = useState(false);
   const [posts, setPosts] = useState([]);
+  
   const { me } = useContext(meContext);
   const container = {
     hidden: { opacity: 1, scale: 0 },
