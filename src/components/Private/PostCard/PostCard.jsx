@@ -7,6 +7,7 @@ import { FaComment } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { FaRegThumbsDown } from "react-icons/fa";
+import { FaThumbsDown } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 import { CiCalendar } from "react-icons/ci";
 import { MdNoAccounts } from "react-icons/md";
@@ -32,6 +33,7 @@ export const PostCard = ({ data }) => {
   });
   const post = useGetPostByIdQuery(data?.id);
   const [liked, setLiked] = useState(false);
+  const [unliked, setUnliked] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [showActionBtns, setShowActionBtns] = useState(true);
   const { setMsg } = useContext(notificationContext);
@@ -63,7 +65,6 @@ export const PostCard = ({ data }) => {
     const likeExists =
       post.data.likes.length &&
       post.data.likes.find((item) => item.user_id == me.id);
-    console.log("Like exists", likeExists);
     if (!likeExists) {
       setLiked(true);
       editPost({
@@ -85,6 +86,39 @@ export const PostCard = ({ data }) => {
         ...post.data,
         likes: [...post.data.likes.filter((item) => item.user_id !== me.id)],
       });
+    }
+  }
+
+  function handleUnlike(e) {
+    if (data?.dislikes?.length) {
+      const dislikeExists = post.data?.dislikes?.find(
+        (item) => item?.user_id == me?.id,
+      );
+      if (!dislikeExists) {
+        setUnliked(true);
+        editPost({
+          ...post.data,
+          dislikes: [
+            ...post.data.dislikes,
+            {
+              user_id: me.id,
+              user_firstname: me.firstname,
+              user_lastname: me.lastname,
+              user_email: me.email,
+              user_avatar: me.avatar,
+            },
+          ],
+        });
+      } else {
+        setUnliked(false);
+        editPost({
+          ...post.data,
+          dislikes: post?.dislikes
+            ? [...post.data.dislikes.filter((item) => item.user_id !== me.id)]
+            : [],
+        });
+      }
+    } else {
     }
   }
 
@@ -139,7 +173,7 @@ export const PostCard = ({ data }) => {
             className="object-contain rounded-md flex-shrink-0"
             width={250}
           />
-          <div className="flex flex-col px-5">
+          <div className="flex flex-col px-5 w-full">
             <h3 className="text-slate-800 text-3xl mb-3">{data?.title}</h3>
             <p className="text-slate-600 mb-8 text-lg md:pr-10">{data?.body}</p>
             <div className="flex flex-col mb-5">
@@ -190,11 +224,21 @@ export const PostCard = ({ data }) => {
               </button>
               <button
                 className={`flex items-center gap-1 text-lg font-medium hover:opacity-75 transition`}
-                title="positive feedback"
-                onClick={handleLike}
+                title="negative feedback"
+                onClick={handleUnlike}
               >
-                <FaRegThumbsDown />
-                {post?.isSuccess && post?.data?.likes?.length}
+                {unliked ? (
+                  <FaThumbsDown
+                    id="thumbsdown-btn"
+                    data-id={post.isSuccess && post.data.id}
+                  />
+                ) : (
+                  <FaRegThumbsDown
+                    id="thumbsdown-btn"
+                    data-id={post.isSuccess && post.data.id}
+                  />
+                )}
+                {post?.isSuccess ? post?.data?.dislikes?.length || 0 : ""}
               </button>
               <motion.button
                 className="flex items-center gap-1 text-lg font-medium"
@@ -202,8 +246,8 @@ export const PostCard = ({ data }) => {
                 whileTap={{ scale: 0.89 }}
                 title="write comment"
               >
-                {showComments ? <FaComment /> : <FaRegComment />} {" "}
-                {post?.isSuccess && post?.data?.comments?.length}
+                {showComments ? <FaComment /> : <FaRegComment />}{" "}
+                {post?.isSuccess && (post?.data?.comments?.length || 0)}
               </motion.button>
             </div>
             {showComments ? (
@@ -265,7 +309,7 @@ export const PostCard = ({ data }) => {
                         )}
                       </form>
                       <ul className="list-unstyled flex flex-col gap-6">
-                        {data?.comments.length ? (
+                        {data?.comments?.length ? (
                           data?.comments.map((comment) => (
                             <li
                               key={comment.id}
@@ -317,10 +361,10 @@ export const PostCard = ({ data }) => {
                                   </div>
                                 ) : (
                                   <div className="flex items-center gap-3">
-                                    <button className="text-red-300 font-medium">
+                                    <button className="text-red-300 font-medium hover:text-red-500">
                                       Delete
                                     </button>
-                                    <button className="text-blue-300 font-medium">
+                                    <button className="text-blue-300 font-medium hover:text-blue-500">
                                       Edit
                                     </button>
                                   </div>
@@ -329,7 +373,7 @@ export const PostCard = ({ data }) => {
                             </li>
                           ))
                         ) : (
-                          <li className="text-lg font-mono select-none opacity-65">
+                          <li className="text-lg font-mono select-none opacity-50">
                             No comments yet #
                           </li>
                         )}

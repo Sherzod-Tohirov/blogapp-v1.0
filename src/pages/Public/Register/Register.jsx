@@ -36,13 +36,13 @@ export const Register = () => {
         if(!validate(passwordRef, validateTypes.password, "Password", setPasswordError)) return;
         console.log(nameError, lastNameError, emailError, passwordError);
         if(!nameError && !lastNameError && !emailError && !passwordError) {
-            console.log("Accepted !");
             axios.post('http://localhost:3000/users', {
                 firstname: nameRef.current.value,
                 lastname: lastNameRef.current.value,
                 email: emailRef.current.value,
                 avatar: urlRef.current.value,
                 likes: [],
+                dislikes: [],
                 password: passwordRef.current.value
             })  
             .then(res => {

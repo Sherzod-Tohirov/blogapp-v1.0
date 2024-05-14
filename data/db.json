@@ -6,6 +6,8 @@
       "email": "ali@mail.ru",
       "avatar": "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250",
       "password": "$2a$10$rttUAP/fALgFbViftsV0rO7AojCPHYNFmDVgbhxsdFwiKAw5oAUE2",
+      "likes": [],
+      "dislikes": [],
       "id": 2
     },
     {
@@ -15,6 +17,7 @@
       "lastname": "berdiyev",
       "avatar": "",
       "likes": [],
+      "dislikes": [],
       "id": 3
     },
     {
@@ -24,6 +27,7 @@
       "lastname": "Doe",
       "avatar": "https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg",
       "likes": [],
+      "dislikes": [],
       "id": 4
     },
     {
@@ -32,6 +36,7 @@
       "email": "john.doe01@gmail.com",
       "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXQ6bgY9CKNkNam4UZqC_3N4YIWw6CpANApfiNh9hKcg&s",
       "password": "$2a$10$VNtyRC44krwh5K./7BeuNOZwh4icEqKkLZJs2dvWILKx3ltiLZiKG",
+      "dislikes": [],
       "id": 5
     },
     {
@@ -41,7 +46,18 @@
       "lastname": "Sobirov",
       "avatar": "",
       "likes": [],
+      "dislikes": [],
       "id": 6
+    },
+    {
+      "email": "ahmad.toshev@mail.ru",
+      "password": "$2a$10$Kttwptk/nBwWzuh7mezG7.mOV2CFUlxb2WAnZcV3my5lVS63V7KC.",
+      "firstname": "Ahmad",
+      "lastname": "Toshev",
+      "avatar": "",
+      "likes": [],
+      "dislikes": [],
+      "id": 7
     }
   ],
   "posts": [
@@ -97,10 +113,44 @@
           "likes": [],
           "dislikes": [],
           "timestamp": 1715621413958
+        },
+        {
+          "id": "1d1243b3-ef44-4a1c-ace8-4d1fc25ba1d2",
+          "body": "rerwerwerwerwer",
+          "user_id": 7,
+          "user_fullname": "Ahmad Toshev",
+          "user_avatar": "",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715661008884
+        },
+        {
+          "id": "e03a3986-ea7f-4983-9876-6f9a9cb5b2d5",
+          "body": "In the intricate tapestry of human progress, technology stands as the weaver, intertwining threads of innovation, creativity, and ingenuity. From the rudimentary tools of ancient civilizations to the intricate networks of the digital age, technology has been the driving force behind mankind's evolution. As we traverse the corridors of time, we witness the relentless march of progress, propelled by the insatiable human thirst for discovery and advancement.\n\nThe journey of technology is a saga of relentless innovation, marked by paradigm shifts and revolutionary breakthroughs. Each epoch in human history has been defined by its technological prowess, from the agricultural revolution that transformed hunter-gatherer societies into settled civilizations to the industrial revolution that heralded the dawn of mechanization and mass production. With each passing era, technology has not only shaped the way we live, work, and communicate but has also reshaped the very fabric of society itself.",
+          "user_id": 7,
+          "user_fullname": "Ahmad Toshev",
+          "user_avatar": "",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715662060689
+        },
+        {
+          "id": "4fcf45af-a14c-44f4-a856-42e97272eac4",
+          "body": "ewqqewqwewe",
+          "user_id": 7,
+          "user_fullname": "Ahmad Toshev",
+          "user_avatar": "",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715666740248
         }
       ],
       "user_id": 2,
-      "id": 3
+      "id": 3,
+      "dislikes": []
     },
     {
       "title": "First Class Functions in Js",
@@ -131,7 +181,19 @@
           "user_avatar": ""
         }
       ],
-      "comments": [],
+      "comments": [
+        {
+          "id": "5fcc99df-c636-4ff2-a3c6-d045cabb6edb",
+          "body": "New comment",
+          "user_id": 7,
+          "user_fullname": "Ahmad Toshev",
+          "user_avatar": "",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715661105801
+        }
+      ],
       "user_id": 2,
       "id": 4
     },
@@ -155,8 +217,16 @@
           "user_lastname": "berdiyev",
           "user_email": "davron@mail.ru",
           "user_avatar": ""
+        },
+        {
+          "user_id": 7,
+          "user_firstname": "Ahmad",
+          "user_lastname": "Toshev",
+          "user_email": "ahmad.toshev@mail.ru",
+          "user_avatar": ""
         }
       ],
+      "dislikes": [],
       "comments": [
         {
           "id": "12dc2e82-66f6-4496-aada-038c38c254fe",
@@ -200,9 +270,28 @@
           "user_lastname": "Doe",
           "user_email": "john.doe01@gmail.com",
           "user_avatar": ""
+        },
+        {
+          "user_id": 7,
+          "user_firstname": "Ahmad",
+          "user_lastname": "Toshev",
+          "user_email": "ahmad.toshev@mail.ru",
+          "user_avatar": ""
         }
       ],
-      "comments": [],
+      "comments": [
+        {
+          "id": "a807d732-1977-4be3-9f34-09a0d946bf12",
+          "body": "refrefef",
+          "user_id": 7,
+          "user_fullname": "Ahmad Toshev",
+          "user_avatar": "",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715667991194
+        }
+      ],
       "user_id": 2,
       "id": 6
     },
@@ -265,7 +354,8 @@
       "category": "Technology",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNp5cdaIatjCHPZfk5xC3CqZFjq7znBp7uWfgM6ZBU0A&s",
       "date": "May 13 2024y 12:10",
-      "user_id": 4
+      "user_id": 4,
+      "comments": []
     },
     {
       "title": "ewew",
@@ -285,7 +375,31 @@
       "category": "Medicine",
       "image": "",
       "date": "May 13 2024y 15:16",
-      "user_id": 5
+      "user_id": 5,
+      "comments": [
+        {
+          "id": "90f71ddd-5127-49e1-a55c-f6038a5c09a9",
+          "body": "erwwrerw",
+          "user_id": 7,
+          "user_fullname": "Ahmad Toshev",
+          "user_avatar": "",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715666743272
+        },
+        {
+          "id": "2af9ae06-f110-42df-bc0d-d2a1c46773cb",
+          "body": "erwerwe",
+          "user_id": 7,
+          "user_fullname": "Ahmad Toshev",
+          "user_avatar": "",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715666798572
+        }
+      ]
     }
   ]
 }
