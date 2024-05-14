@@ -47,7 +47,7 @@ export const EditPostModal = ({ setEditPostModal }) => {
   const { me, setMe } = useContext(meContext);
   const [editPost, { isSuccess, isError, error }] = useEditPostMutation();
   function handleDeletePost() {
-    deletePost({id});
+    deletePost({ id });
   }
 
   if (deleteIsSuccess) {
@@ -55,7 +55,7 @@ export const EditPostModal = ({ setEditPostModal }) => {
     setMsg("Post is deleted successfully");
   }
 
-  if(deleteIsError) {
+  if (deleteIsError) {
     console.log(deleteError);
   }
 
@@ -104,6 +104,7 @@ export const EditPostModal = ({ setEditPostModal }) => {
           error={titleError}
         />
         <Input
+          stylex={"min-h-[150px] max-h-[300px]"}
           value={post?.body}
           as="textarea"
           name={"Body"}
