@@ -45,6 +45,10 @@ export const PostCard = ({ data }) => {
     if (data?.likes?.find((item) => item.user_id == me.id)) {
       setLiked(true);
     }
+
+    if (data?.dislikes?.find((item) => item.user_id == me.id)) {
+      setUnliked(true);
+    }
   }, []);
   const [
     editPost,
@@ -79,7 +83,17 @@ export const PostCard = ({ data }) => {
             user_avatar: me.avatar,
           },
         ],
+        dislikes: unliked
+          ? post?.dislikes?.length
+            ? [...post.dislikes.filter((item) => item.user_id != me.id)]
+            : []
+          : post?.dislikes?.length
+            ? [...post.dislikes]
+            : [],
       });
+      if (unliked) {
+        setUnliked(false);
+      }
     } else {
       setLiked(false);
       editPost({
@@ -89,40 +103,55 @@ export const PostCard = ({ data }) => {
     }
   }
 
-  function handleUnlike(e) {
-    if (data?.dislikes?.length) {
-      const dislikeExists = post.data?.dislikes?.find(
-        (item) => item?.user_id == me?.id,
-      );
-      if (!dislikeExists) {
-        setUnliked(true);
-        editPost({
-          ...post.data,
-          dislikes: [
-            ...post.data.dislikes,
-            {
-              user_id: me.id,
-              user_firstname: me.firstname,
-              user_lastname: me.lastname,
-              user_email: me.email,
-              user_avatar: me.avatar,
-            },
-          ],
-        });
-      } else {
-        setUnliked(false);
-        editPost({
-          ...post.data,
-          dislikes: post?.dislikes
-            ? [...post.data.dislikes.filter((item) => item.user_id !== me.id)]
+  function handleUnlike() {
+    if (!data?.dislikes) {
+      editPost({
+        ...post.data,
+        dislikes: [],
+      });
+    }
+
+    const dislikeExists = post.data?.dislikes?.find(
+      (item) => item.user_id === me.id,
+    );
+
+    if (!dislikeExists) {
+      setUnliked(true);
+      editPost({
+        ...post.data,
+        dislikes: [
+          ...post.data.dislikes,
+          {
+            user_id: me.id,
+            user_firstname: me.firstname,
+            user_lastname: me.lastname,
+            user_email: me.email,
+            user_avatar: me.avatar,
+          },
+        ],
+        likes: liked
+          ? post?.likes?.length
+            ? [...post.likes.filter((item) => item.user_id != me.id)]
+            : []
+          : post?.likes?.length
+            ? [...post.likes]
             : [],
-        });
+      });
+      if (liked) {
+        setLiked(false);
       }
     } else {
+      setUnliked(false);
+      editPost({
+        ...post.data,
+        dislikes: [
+          ...post.data.dislikes.filter((item) => item.user_id !== me.id),
+        ],
+      });
     }
   }
 
-  function handleComment(e) {
+  function handleComment() {
     setShowComments((prev) => !prev);
   }
 
