@@ -84,11 +84,11 @@ export const PostCard = ({ data }) => {
           },
         ],
         dislikes: unliked
-          ? post?.dislikes?.length
-            ? [...post.dislikes.filter((item) => item.user_id != me.id)]
+          ? post?.data?.dislikes?.length
+            ? [...post.data.dislikes.filter((item) => item.user_id != me.id)]
             : []
-          : post?.dislikes?.length
-            ? [...post.dislikes]
+          : post?.data?.dislikes?.length
+            ? [...post.data.dislikes]
             : [],
       });
       if (unliked) {
@@ -130,11 +130,11 @@ export const PostCard = ({ data }) => {
           },
         ],
         likes: liked
-          ? post?.likes?.length
-            ? [...post.likes.filter((item) => item.user_id != me.id)]
+          ? post?.data?.likes?.length
+            ? [...post.data.likes.filter((item) => item.user_id != me.id)]
             : []
-          : post?.likes?.length
-            ? [...post.likes]
+          : post?.data?.likes?.length
+            ? [...post.data.likes]
             : [],
       });
       if (liked) {
@@ -180,6 +180,19 @@ export const PostCard = ({ data }) => {
       setMsg("Your comment is added successfully !");
     }
   }
+
+  function handleDeleteComment(id) {
+    const filteredData = data.comments.filter((item) => item.id !== id);
+    mutation({
+      ...data,
+      comments: [...filteredData],
+    });
+    if (!isError) {
+      setMsg("Post is deleted successfully!");
+    }
+  }
+
+  function handleEditComment() {}
 
   const item = {
     hidden: { y: 20, opacity: 0 },
@@ -337,76 +350,94 @@ export const PostCard = ({ data }) => {
                           ""
                         )}
                       </form>
-                      <ul className="list-unstyled flex flex-col gap-6">
-                        {data?.comments?.length ? (
-                          data?.comments.map((comment) => (
-                            <li
-                              key={comment.id}
-                              className="flex items-start gap-4"
-                            >
-                              <img
-                                className="rounded-full w-8 h-8 object-contain"
-                                src={
-                                  comment.user_id == me.id
-                                    ? me.avatar ||
-                                      "../../../../public/default.webp"
-                                    : comment.user_avatar ||
-                                      "../../../../public/default.webp"
-                                }
-                                alt=""
-                              />
-                              <div className="flex flex-col gap-1">
-                                <div className="flex items-center gap-4">
-                                  <h3 className="m-0 font-medium">
-                                    {me.id == comment.user_id
-                                      ? "Your comment"
-                                      : comment.user_fullname}
-                                  </h3>
-                                  <time className="text-slate-300">
-                                    {refineTimestamp(comment.timestamp)}
-                                  </time>
+                      <AnimatePresence>
+                        <ul className="list-unstyled flex flex-col gap-6">
+                          {data?.comments?.length ? (
+                            data?.comments.map((comment) => (
+                              <motion.li
+                                layout
+                                key={comment.id}
+                                className="flex items-start gap-4"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                              >
+                                <img
+                                  className="rounded-full w-8 h-8 object-contain"
+                                  src={
+                                    comment.user_id == me.id
+                                      ? me.avatar ||
+                                        "../../../../public/default.webp"
+                                      : comment.user_avatar ||
+                                        "../../../../public/default.webp"
+                                  }
+                                  alt=""
+                                />
+                                <div className="flex flex-col gap-1">
+                                  <div className="flex items-center gap-4">
+                                    <h3 className="m-0 font-medium">
+                                      {me.id == comment.user_id
+                                        ? "Your comment"
+                                        : comment.user_fullname}
+                                    </h3>
+                                    <time className="text-slate-300">
+                                      {refineTimestamp(comment.timestamp)}
+                                    </time>
+                                  </div>
+                                  <p>{comment.body}</p>
+                                  {comment.user_id !== me.id ? (
+                                    <div className="flex items-center gap-2 mt-3">
+                                      <button className="text-slate-500 font-medium">
+                                        Reply
+                                      </button>
+                                      <span className="flex w-1 h-1 rounded-full bg-slate-600"></span>
+                                      <button className="flex items-center gap-1 font-medium">
+                                        <FaRegThumbsUp
+                                          id="thumbsup-btn"
+                                          data-id={
+                                            post.isSuccess && post.data.id
+                                          }
+                                        />{" "}
+                                        {comment.likes.length}
+                                      </button>
+                                      <button className="flex items-center gap-1 font-medium">
+                                        <FaRegThumbsDown
+                                          id="thumbsup-btn"
+                                          data-id={
+                                            post.isSuccess && post.data.id
+                                          }
+                                        />{" "}
+                                        {comment.dislikes.length}
+                                      </button>
+                                    </div>
+                                  ) : (
+                                    <div className="flex items-center gap-3">
+                                      <button
+                                        className="text-red-300 font-medium hover:text-red-500"
+                                        onClick={() =>
+                                          handleDeleteComment(comment.id)
+                                        }
+                                      >
+                                        Delete
+                                      </button>
+                                      <button
+                                        className="text-blue-300 font-medium hover:text-blue-500"
+                                        onClick={handleEditComment}
+                                      >
+                                        Edit
+                                      </button>
+                                    </div>
+                                  )}
                                 </div>
-                                <p>{comment.body}</p>
-                                {comment.user_id !== me.id ? (
-                                  <div className="flex items-center gap-2 mt-3">
-                                    <button className="text-slate-500 font-medium">
-                                      Reply
-                                    </button>
-                                    <span className="flex w-1 h-1 rounded-full bg-slate-600"></span>
-                                    <button className="flex items-center gap-1 font-medium">
-                                      <FaRegThumbsUp
-                                        id="thumbsup-btn"
-                                        data-id={post.isSuccess && post.data.id}
-                                      />{" "}
-                                      {comment.likes.length}
-                                    </button>
-                                    <button className="flex items-center gap-1 font-medium">
-                                      <FaRegThumbsDown
-                                        id="thumbsup-btn"
-                                        data-id={post.isSuccess && post.data.id}
-                                      />{" "}
-                                      {comment.dislikes.length}
-                                    </button>
-                                  </div>
-                                ) : (
-                                  <div className="flex items-center gap-3">
-                                    <button className="text-red-300 font-medium hover:text-red-500">
-                                      Delete
-                                    </button>
-                                    <button className="text-blue-300 font-medium hover:text-blue-500">
-                                      Edit
-                                    </button>
-                                  </div>
-                                )}
-                              </div>
+                              </motion.li>
+                            ))
+                          ) : (
+                            <li className="text-lg font-mono select-none opacity-50">
+                              No comments yet #
                             </li>
-                          ))
-                        ) : (
-                          <li className="text-lg font-mono select-none opacity-50">
-                            No comments yet #
-                          </li>
-                        )}
-                      </ul>
+                          )}
+                        </ul>
+                      </AnimatePresence>
                     </div>
                   </div>
                 </div>
