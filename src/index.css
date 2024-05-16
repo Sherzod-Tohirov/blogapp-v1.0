@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 
+* {
+    box-sizing: border-box;
+}
+
+p {
+    word-break: break-word !important;
+}
+
 body {
     margin: 0;
 }

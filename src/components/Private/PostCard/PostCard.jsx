@@ -18,10 +18,12 @@ import {
   useEditPostMutation,
   useGetPostByIdQuery,
 } from "../../../store/posts/postsApi";
-import { refineTimestamp, userCommentSchema } from "./utils";
+import { userCommentSchema } from "./utils";
 import { notificationContext } from "../../../context/notificationContext";
+import { PostComment } from "./components/PostComment/index.js";
 export const PostCard = ({ data }) => {
   const { me } = useContext(meContext);
+  const { setMsg } = useContext(notificationContext);
   const [user, setUser] = useState({});
   const {
     handleSubmit,
@@ -34,12 +36,8 @@ export const PostCard = ({ data }) => {
   const post = useGetPostByIdQuery(data?.id);
   const [liked, setLiked] = useState(false);
   const [unliked, setUnliked] = useState(false);
-  const [replyInputShow, setReplyInputShow] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [showActionBtns, setShowActionBtns] = useState(true);
-  const [showReplyActionBtns, setShowReplyActionBtns] = useState(true);
-
-  const { setMsg } = useContext(notificationContext);
   const [mutation, { isLoading: addCommentLoading, isError: addCommentError }] =
     useEditPostMutation();
   const date = new Date();
@@ -184,19 +182,6 @@ export const PostCard = ({ data }) => {
     }
   }
 
-  function handleDeleteComment(id) {
-    const filteredData = data.comments.filter((item) => item.id !== id);
-    mutation({
-      ...data,
-      comments: [...filteredData],
-    });
-    if (!isError) {
-      setMsg("Post is deleted successfully!");
-    }
-  }
-
-  function handleEditComment() {}
-
   const item = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -204,10 +189,17 @@ export const PostCard = ({ data }) => {
       opacity: 1,
     },
   };
-
   return (
     <AnimatePresence>
       <motion.li
+        // layout
+        // layoutId="underline"
+        // transition={{
+        //   type: "spring",
+        //   stiffness: 800,
+        //   bounceStiffness: 100,
+        //   duration: 0.2,
+        // }}
         variants={item}
         className="sm:w-full p-8 shadow-md shadow-slate-500 rounded-md flex flex-col transition"
         ref={itemRef}
@@ -359,159 +351,11 @@ export const PostCard = ({ data }) => {
                         <ul className="list-unstyled flex flex-col gap-6">
                           {data?.comments?.length ? (
                             data?.comments.map((comment) => (
-                              <motion.li
+                              <PostComment
                                 key={comment.id}
-                                className="flex items-start gap-4"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                              >
-                                <img
-                                  className="rounded-full w-8 h-8 object-contain"
-                                  src={
-                                    comment.user_id == me.id
-                                      ? me.avatar ||
-                                        "../../../../public/default.webp"
-                                      : comment.user_avatar ||
-                                        "../../../../public/default.webp"
-                                  }
-                                  alt=""
-                                />
-                                <div className="flex flex-col gap-1">
-                                  <div className="flex items-center gap-4">
-                                    <h3 className="m-0 font-medium">
-                                      {me.id === comment.user_id
-                                        ? "Your comment"
-                                        : comment.user_fullname}
-                                    </h3>
-                                    <time className="text-slate-300">
-                                      {refineTimestamp(comment.timestamp)}
-                                    </time>
-                                  </div>
-                                  <p>{comment.body}</p>
-                                  {comment.user_id !== me.id ? (
-                                    <div className={"flex flex-col gap-3"}>
-                                      <div className="flex items-center gap-2 mt-3">
-                                        <button
-                                          className="text-slate-500 font-medium"
-                                          onClick={() =>
-                                            setReplyInputShow((prev) => !prev)
-                                          }
-                                        >
-                                          Reply
-                                        </button>
-                                        <span className="flex w-1 h-1 rounded-full bg-slate-600"></span>
-                                        <button className="flex items-center gap-1 font-medium">
-                                          <FaRegThumbsUp
-                                            id="thumbsup-btn"
-                                            data-id={
-                                              post.isSuccess && post.data.id
-                                            }
-                                          />{" "}
-                                          {comment.likes.length}
-                                        </button>
-                                        <button className="flex items-center gap-1 font-medium">
-                                          <FaRegThumbsDown
-                                            id="thumbsup-btn"
-                                            data-id={
-                                              post.isSuccess ? post.data.id : ""
-                                            }
-                                          />{" "}
-                                          {comment.dislikes.length}
-                                        </button>
-                                      </div>
-                                      {replyInputShow ? (
-                                        <div
-                                          className={"flex items-start gap-2"}
-                                        >
-                                          <div className={"flex"}>
-                                            <div className="relative flex">
-                                              <img
-                                                className="rounded-full w-8 h-8 object-contain"
-                                                src={
-                                                  me?.avatar ||
-                                                  "../../../../public/default.webp"
-                                                }
-                                                alt="Image"
-                                              />
-                                              <span className="absolute z-10 flex w-2 h-2 rounded-full  bg-green-400 bottom-0 right-0"></span>
-                                            </div>
-                                          </div>
-                                          <form
-                                            className="flex flex-col gap-4"
-                                            onSubmit={handleSubmit(
-                                              onCommentSubmit,
-                                            )}
-                                          >
-                                            <textarea
-                                              {...register("user_comment")}
-                                              className={`w-full min-h-[70px] max-h-[150px] p-2 font-medium border rounded-sm ${
-                                                isError
-                                                  ? "border-red-400"
-                                                  : "border-slate-400"
-                                              }`}
-                                              placeholder="Reply here..."
-                                              onFocus={() =>
-                                                setShowReplyActionBtns(true)
-                                              }
-                                            ></textarea>
-                                            {showReplyActionBtns ? (
-                                              <AnimatePresence>
-                                                <motion.div className="flex items-center gap-2 w-full">
-                                                  <motion.button
-                                                    type="submit"
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: 1 }}
-                                                    exit={{ opacity: 0 }}
-                                                    className="bg-blue-500 text-white rounded-md p-1 px-3"
-                                                  >
-                                                    Send
-                                                  </motion.button>
-                                                  <motion.button
-                                                    type="button"
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: 1 }}
-                                                    exit={{ opacity: 0 }}
-                                                    className="bg-red-400 text-white rounded-md p-1 px-3"
-                                                    onClick={() =>
-                                                      setShowReplyActionBtns(
-                                                        false,
-                                                      )
-                                                    }
-                                                  >
-                                                    Cancel
-                                                  </motion.button>
-                                                </motion.div>
-                                              </AnimatePresence>
-                                            ) : (
-                                              ""
-                                            )}
-                                          </form>
-                                        </div>
-                                      ) : (
-                                        ""
-                                      )}
-                                    </div>
-                                  ) : (
-                                    <div className="flex items-center gap-3">
-                                      <button
-                                        className="text-red-300 font-medium hover:text-red-500"
-                                        onClick={() =>
-                                          handleDeleteComment(comment.id)
-                                        }
-                                      >
-                                        Delete
-                                      </button>
-                                      <button
-                                        className="text-blue-300 font-medium hover:text-blue-500"
-                                        onClick={handleEditComment}
-                                      >
-                                        Edit
-                                      </button>
-                                    </div>
-                                  )}
-                                </div>
-                              </motion.li>
+                                comment={comment}
+                                data={data}
+                              />
                             ))
                           ) : (
                             <li className="text-lg font-mono select-none opacity-50">
