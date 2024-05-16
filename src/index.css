@@ -86,3 +86,19 @@ button:active {
     transform: scale(0.97) !important;
     transition: transform 0.2s ease-in-out;
 }
+
+.overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 20;
+}
+
+.closer {
+    z-index: 30;
+}
