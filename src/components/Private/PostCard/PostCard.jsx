@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useAnimate } from "framer-motion";
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { FaThumbsUp } from "react-icons/fa";
@@ -11,6 +11,7 @@ import { FaThumbsDown } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 import { CiCalendar } from "react-icons/ci";
 import { MdNoAccounts } from "react-icons/md";
+import { IoClose } from "react-icons/io5";
 import { meContext } from "../../../context/meContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -41,6 +42,8 @@ export const PostCard = ({ data }) => {
   const [mutation, { isLoading: addCommentLoading, isError: addCommentError }] =
     useEditPostMutation();
   const date = new Date();
+  const [scope, animate] = useAnimate({});
+  const [scalePostImage, setScalePostImage] = useState(false);
   const itemRef = useRef();
   useEffect(() => {
     if (data?.likes?.find((item) => item.user_id == me.id)) {
@@ -51,6 +54,13 @@ export const PostCard = ({ data }) => {
       setUnliked(true);
     }
   }, []);
+  useEffect(() => {
+    if (scalePostImage) {
+      animate(scope.current, { scale: 4, x: 400, y: 100 });
+    } else {
+      animate(scope.current, { scale: 1, y: 0, x: 0 });
+    }
+  }, [scalePostImage]);
   const [
     editPost,
     { isSuccess: editSuccess, isError: editIsError, error: editError },
@@ -205,11 +215,35 @@ export const PostCard = ({ data }) => {
         ref={itemRef}
       >
         <div className="flex items-start">
-          <img
-            src={data?.image || "../../../../public/react.png"}
-            className="object-contain rounded-md flex-shrink-0"
-            width={250}
-          />
+          {scalePostImage ? (
+            <div
+              className={"overlay"}
+              onClick={() => setScalePostImage(false)}
+            ></div>
+          ) : (
+            ""
+          )}
+          <div className={"relative z-40"} ref={scope}>
+            <motion.img
+              src={data?.image || "../../../../public/react.png"}
+              onClick={() => setScalePostImage((p) => !p)}
+              className={`object-contain rounded-md flex-shrink-0 cursor-pointer `}
+              width={250}
+            />
+            {scalePostImage ? (
+              <button
+                className={
+                  "flex items-center justify-center p-[2px] rounded-full bg-white text-black absolute top-[-15px] right-[-8px]"
+                }
+                onClick={() => setScalePostImage(false)}
+              >
+                {" "}
+                <IoClose size={9} />
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
           <div className="flex flex-col px-5 w-full">
             <h3 className="text-slate-800 text-3xl mb-3">{data?.title}</h3>
             <p className="text-slate-600 mb-8 text-lg md:pr-10">{data?.body}</p>
@@ -220,7 +254,7 @@ export const PostCard = ({ data }) => {
                 </span>{" "}
                 {user.id ? (
                   <img
-                    className="object-cover rounded-full"
+                    className="object-cover rounded-full post-img"
                     src={user?.avatar || "../../../../public/default.webp"}
                     width={25}
                     height={25}
