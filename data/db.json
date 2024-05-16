@@ -46,64 +46,35 @@
       ],
       "comments": [
         {
-          "id": "2689a5c1-f32a-415e-bcf5-7a229cdd1de0",
-          "body": "gtrggrtg",
+          "id": "45eca5cd-de36-4fca-91c8-b343d6a49ea7",
+          "body": "reererr",
+          "user_id": 2,
+          "user_fullname": "Anvar Sobirov",
+          "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png",
+          "replies": [],
+          "likes": [
+            {
+              "id": "cc147b60-8a41-406b-a388-13bdc4f58b23",
+              "user_firstname": "Larry",
+              "user_lastname": "Page",
+              "user_email": "larry@mail.ru",
+              "user_avatar": "https://blog.alexdevero.com/wp-content/uploads/2020/06/08-06-20-how-javascript-async-await-works-and-how-to-use-it-blog.jpg",
+              "user_id": 1
+            }
+          ],
+          "dislikes": [],
+          "timestamp": 1715851693263
+        },
+        {
+          "id": "f92e9856-da3f-4d6a-a2c4-39def234fa59",
+          "body": "23e3e",
           "user_id": 1,
           "user_fullname": "Larry Page",
           "user_avatar": "https://blog.alexdevero.com/wp-content/uploads/2020/06/08-06-20-how-javascript-async-await-works-and-how-to-use-it-blog.jpg",
-          "replies": [
-            {
-              "id": "cdcceb34-9d5f-42ef-91c7-9e256bcd1a77",
-              "body": "r32r23",
-              "user_id": 2,
-              "user_fullname": "Anvar Sobirov",
-              "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png",
-              "timestamp": 1715764028032
-            },
-            {
-              "id": "875b69e3-d9f3-49db-b200-01aa04dc4e4a",
-              "body": "3r23r23",
-              "user_id": 2,
-              "user_fullname": "Anvar Sobirov",
-              "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png",
-              "timestamp": 1715764030017
-            },
-            {
-              "id": "0acce4fa-c536-456a-bf90-ed3964de7ca0",
-              "body": "r43rr3",
-              "user_id": 2,
-              "user_fullname": "Anvar Sobirov",
-              "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png",
-              "timestamp": 1715765113879
-            },
-            {
-              "id": "3625f161-f977-417c-95e4-6e5c9456b786",
-              "body": "r43",
-              "user_id": 2,
-              "user_fullname": "Anvar Sobirov",
-              "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png",
-              "timestamp": 1715765115850
-            },
-            {
-              "id": "6efd91cc-b9f9-479a-a1a7-9484ff6044ea",
-              "body": "r43r4",
-              "user_id": 2,
-              "user_fullname": "Anvar Sobirov",
-              "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png",
-              "timestamp": 1715765118067
-            },
-            {
-              "id": "3de06621-8240-46e1-9883-812ef26a15e5",
-              "body": "dwedew",
-              "user_id": 2,
-              "user_fullname": "Anvar Sobirov",
-              "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png",
-              "timestamp": 1715776898888
-            }
-          ],
+          "replies": [],
           "likes": [],
           "dislikes": [],
-          "timestamp": 1715763049547
+          "timestamp": 1715854525762
         }
       ],
       "user_id": 1,

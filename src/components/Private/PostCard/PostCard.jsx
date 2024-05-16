@@ -192,13 +192,14 @@ export const PostCard = ({ data }) => {
   return (
     <AnimatePresence>
       <motion.li
-        layout
-        transition={{
-          type: "spring",
-          stiffness: 800,
-          bounceStiffness: 100,
-          duration: 0.2,
-        }}
+        // layout
+        // layoutId="underline"
+        // transition={{
+        //   type: "spring",
+        //   stiffness: 800,
+        //   bounceStiffness: 100,
+        //   duration: 0.2,
+        // }}
         variants={item}
         className="sm:w-full p-8 shadow-md shadow-slate-500 rounded-md flex flex-col transition"
         ref={itemRef}
