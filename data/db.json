@@ -30,6 +30,63 @@
       "date": "May 15 2024y 11:09",
       "likes": [
         {
+          "user_id": 1,
+          "user_firstname": "Larry",
+          "user_lastname": "Page",
+          "user_email": "larry@mail.ru",
+          "user_avatar": "https://blog.alexdevero.com/wp-content/uploads/2020/06/08-06-20-how-javascript-async-await-works-and-how-to-use-it-blog.jpg"
+        },
+        {
+          "user_id": 2,
+          "user_firstname": "Anvar",
+          "user_lastname": "Sobirov",
+          "user_email": "anvar@gmail.com",
+          "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png"
+        }
+      ],
+      "comments": [
+        {
+          "id": "e8018f72-2dc1-493c-acd7-0264859f1a3e",
+          "body": "Good article !",
+          "user_id": 2,
+          "user_fullname": "Anvar Sobirov",
+          "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png",
+          "replies": [
+            {
+              "id": "e7c7889c-cd91-4c3f-8728-d813564e16cf",
+              "body": "Good !",
+              "user_id": 1,
+              "user_fullname": "Larry Page",
+              "user_avatar": "https://blog.alexdevero.com/wp-content/uploads/2020/06/08-06-20-how-javascript-async-await-works-and-how-to-use-it-blog.jpg",
+              "timestamp": 1715930434321
+            }
+          ],
+          "likes": [
+            {
+              "id": "7267234a-6902-4ef1-a849-5a6be42adfe8",
+              "user_firstname": "Larry",
+              "user_lastname": "Page",
+              "user_email": "larry@mail.ru",
+              "user_avatar": "https://blog.alexdevero.com/wp-content/uploads/2020/06/08-06-20-how-javascript-async-await-works-and-how-to-use-it-blog.jpg",
+              "user_id": 1
+            }
+          ],
+          "dislikes": [],
+          "timestamp": 1715930287925
+        }
+      ],
+      "user_id": 1,
+      "id": 1,
+      "dislikes": []
+    },
+    {
+      "title": "Event Loop in JS",
+      "body": "JavaScript is undoubtedly one of the most popular programming languages today, powering the interactive elements of countless websites and web applications. Central to its asynchronous nature is the Event Loop, a concept that often mystifies beginners. In this blog post, we'll unravel the mysteries of the Event Loop in JavaScript, explaining what it is, how it works, and why it's crucial for building responsive and efficient applications.\n\nWhat is the Event Loop?\nAt its core, the Event Loop is a mechanism that allows JavaScript to perform non-blocking operations by handling asynchronous events. In simpler terms, it ensures that JavaScript remains responsive while executing multiple tasks simultaneously.\n\nHow Does the Event Loop Work?\nImagine the Event Loop as a never-ending cycle where JavaScript continuously checks for tasks to execute. Here's a breakdown of its key components:\n\nCall Stack: The Call Stack is where JavaScript keeps track of function calls. When you invoke a function, it gets added to the stack. As functions complete, they are removed from the stack.\n\nWeb APIs: JavaScript interacts with the browser's environment through Web APIs, which include features like timers, DOM manipulation, and AJAX requests.\n\nCallback Queue: Asynchronous operations, such as setTimeout or XMLHttpRequest, are handled by Web APIs. Once these operations are completed, their corresponding callback functions are pushed into the Callback Queue.",
+      "category": "Technology",
+      "image": "https://media.geeksforgeeks.org/wp-content/uploads/20200224050909/nodejs2.png",
+      "date": "May 16 2024y 16:26",
+      "likes": [
+        {
           "user_id": 2,
           "user_firstname": "Anvar",
           "user_lastname": "Sobirov",
@@ -46,78 +103,40 @@
       ],
       "comments": [
         {
-          "id": "a0092d20-2e4a-4b47-8d14-744c7e440d04",
-          "body": "fffffff",
+          "id": "f1522ee3-31b2-4c86-8bd5-340d67bb280b",
+          "body": "dasdsd",
           "user_id": 2,
           "user_fullname": "Anvar Sobirov",
           "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png",
-          "replies": [
+          "replies": [],
+          "likes": [],
+          "dislikes": [
             {
-              "id": "cc8859b7-d88e-471f-9382-c491145c0a2d",
-              "body": "ergergerg",
-              "user_id": 1,
-              "user_fullname": "Larry Page",
+              "id": "3239e052-65ca-4bdc-893f-004108abe4a5",
+              "user_firstname": "Larry",
+              "user_lastname": "Page",
+              "user_email": "larry@mail.ru",
               "user_avatar": "https://blog.alexdevero.com/wp-content/uploads/2020/06/08-06-20-how-javascript-async-await-works-and-how-to-use-it-blog.jpg",
-              "timestamp": 1715861181084
+              "user_id": 1
             }
           ],
-          "likes": [],
-          "dislikes": [],
-          "timestamp": 1715860242985
-        }
-      ],
-      "user_id": 1,
-      "id": 1,
-      "dislikes": []
-    },
-    {
-      "title": "Event Loop in JS",
-      "body": "JavaScript is undoubtedly one of the most popular programming languages today, powering the interactive elements of countless websites and web applications. Central to its asynchronous nature is the Event Loop, a concept that often mystifies beginners. In this blog post, we'll unravel the mysteries of the Event Loop in JavaScript, explaining what it is, how it works, and why it's crucial for building responsive and efficient applications.\n\nWhat is the Event Loop?\nAt its core, the Event Loop is a mechanism that allows JavaScript to perform non-blocking operations by handling asynchronous events. In simpler terms, it ensures that JavaScript remains responsive while executing multiple tasks simultaneously.\n\nHow Does the Event Loop Work?\nImagine the Event Loop as a never-ending cycle where JavaScript continuously checks for tasks to execute. Here's a breakdown of its key components:\n\nCall Stack: The Call Stack is where JavaScript keeps track of function calls. When you invoke a function, it gets added to the stack. As functions complete, they are removed from the stack.\n\nWeb APIs: JavaScript interacts with the browser's environment through Web APIs, which include features like timers, DOM manipulation, and AJAX requests.\n\nCallback Queue: Asynchronous operations, such as setTimeout or XMLHttpRequest, are handled by Web APIs. Once these operations are completed, their corresponding callback functions are pushed into the Callback Queue.",
-      "category": "Technology",
-      "image": "https://media.geeksforgeeks.org/wp-content/uploads/20200224050909/nodejs2.png",
-      "date": "May 16 2024y 16:26",
-      "likes": [
-        {
-          "user_id": 1,
-          "user_firstname": "Larry",
-          "user_lastname": "Page",
-          "user_email": "larry@mail.ru",
-          "user_avatar": "https://blog.alexdevero.com/wp-content/uploads/2020/06/08-06-20-how-javascript-async-await-works-and-how-to-use-it-blog.jpg"
+          "timestamp": 1715928488179
         },
         {
+          "id": "dddc842d-eea1-4848-a50e-9a4af4e469b4",
+          "body": "sadas",
           "user_id": 2,
-          "user_firstname": "Anvar",
-          "user_lastname": "Sobirov",
-          "user_email": "anvar@gmail.com",
-          "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png"
+          "user_fullname": "Anvar Sobirov",
+          "user_avatar": "https://www.codecademy.com/resources/blog/wp-content/uploads/2022/12/what-is-javascript-used-for.png",
+          "replies": [],
+          "likes": [],
+          "dislikes": [],
+          "timestamp": 1715928496331
         }
       ],
-      "comments": [],
       "user_id": 1,
       "id": 2,
       "dislikes": []
-    },
-    {
-      "title": "weqwwq",
-      "body": "qewqweqw",
-      "category": "Medicine",
-      "image": "",
-      "date": "May 16 2024y 16:51",
-      "likes": [],
-      "comments": [],
-      "user_id": 2,
-      "id": 3
-    },
-    {
-      "title": "qweqwewq",
-      "body": "qweqe",
-      "category": "Chemistry",
-      "image": "",
-      "date": "May 16 2024y 16:52",
-      "likes": [],
-      "comments": [],
-      "user_id": 2,
-      "id": 4
     }
   ]
 }

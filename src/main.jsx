@@ -7,7 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 import { SettingsDropDownProvider } from "./context/settingsDropdownContext.jsx";
 import { NotificationProvider } from "./context/notificationContext.jsx";
 import { store } from "./store/store.js";
-import {Provider} from 'react-redux';
+import { Provider } from "react-redux";
+import { NextUIProvider } from "@nextui-org/react";
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <TokenProvider>
@@ -15,11 +16,13 @@ createRoot(document.getElementById("root")).render(
         <SettingsDropDownProvider>
           <NotificationProvider>
             <Provider store={store}>
-              <App />
+              <NextUIProvider>
+                <App />
+              </NextUIProvider>
             </Provider>
           </NotificationProvider>
         </SettingsDropDownProvider>
       </MeProvider>
     </TokenProvider>
-  </BrowserRouter>
+  </BrowserRouter>,
 );

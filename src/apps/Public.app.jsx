@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Header } from "../components/Public/Header";
-import { Home, Posts, Login, Register } from "../pages/Public";
+import { Home, Login, Register } from "../pages/Public";
+import { Posts } from "../pages/General/Posts";
 import { NotFound } from "../pages/General/NotFound/index.js";
 
 export const Public = () => {

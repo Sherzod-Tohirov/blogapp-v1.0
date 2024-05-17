@@ -12,7 +12,7 @@ export const SettingsPosts = () => {
   const [addPostModal, setAddPostModal] = useState(false);
   const [editPostModal, setEditPostModal] = useState(false);
   const [posts, setPosts] = useState([]);
-  
+
   const { me } = useContext(meContext);
   const container = {
     hidden: { opacity: 1, scale: 0 },
@@ -43,13 +43,15 @@ export const SettingsPosts = () => {
   }, [addPostModal, editPostModal]);
   return (
     <AnimatePresence>
-      <div className="sm:w-full md:w-7/12 flex flex-col items-center p-5 shadow-md shadow-slate-400">
-        <h2 className="text-3xl text-slate-600 mb-8">My Posts</h2>
+      <div className="sm:w-full md:w-7/12 flex flex-col gap-4 items-center p-5 shadow-md shadow-slate-400">
+        <h2 className="sm:text-2xl lg:text-3xl text-slate-600 mb-8">
+          My Posts
+        </h2>
         <motion.ul
           variants={container}
           initial="hidden"
           animate="visible"
-          className="list-none flex flex-col gap-3 pr-4 w-full max-h-[80%]"
+          className="list-none flex flex-col gap-3 lg:pr-4 w-full max-h-[80%]"
           values={posts}
         >
           {posts?.length ? (
@@ -73,7 +75,7 @@ export const SettingsPosts = () => {
         </motion.ul>
         <Button
           onClick={handleAddPostModal}
-          stylex="mt-5 mr-auto text-lg justify-center gap-3"
+          stylex="lg:mt-5 lg:mr-auto lg:text-lg sm:text-[14px] justify-center gap-3"
         >
           Add new post <MdOutlineCreateNewFolder className="text-xl" />
         </Button>

@@ -1,13 +1,13 @@
-import { PostCard } from "../../../components/Private/PostCard";
-import { PostsList } from "../../../components/Private/PostsList";
-import { Loader } from "../../../components/General/Loader";
-import { useGetPostsQuery } from "../../../store/posts/postsApi";
+import { PostCard } from "../../../components/Private/PostCard/index.js";
+import { PostsList } from "../../../components/Private/PostsList/index.js";
+import { Loader } from "../../../components/General/Loader/index.js";
+import { useGetPostsQuery } from "../../../store/posts/postsApi.js";
 import notfound from "../../../assets/images/empty.png";
+import { Title } from "../../../components/General/Title/index.js";
 export const Posts = () => {
   const { data: posts, isError, isLoading } = useGetPostsQuery();
   return (
-    <div className="container mx-auto px-3">
-      <h1 className="text-center text-4xl mt-8 mb-10">Posts</h1>
+    <div className="container mx-auto px-3 py-5">
       <PostsList>
         {posts?.length ? (
           posts.map((post) => <PostCard key={post?.id} data={post} />)

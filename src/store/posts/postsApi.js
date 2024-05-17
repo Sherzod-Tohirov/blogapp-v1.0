@@ -13,7 +13,7 @@ export const postsApi = createApi({
           : ["Posts"],
     }),
     getUserPosts: builder.query({
-      query: (userId) => `posts/${userId}`
+      query: (userId) => `posts/${userId}`,
     }),
     getPostById: builder.query({
       query: (id) => `posts/${id}`,
@@ -25,6 +25,7 @@ export const postsApi = createApi({
         method: "post",
         body,
       }),
+      invalidatesTags: ["Posts"],
     }),
     editPost: builder.mutation({
       query: (body) => ({
@@ -32,30 +33,32 @@ export const postsApi = createApi({
         method: "put",
         body,
       }),
-      invalidatesTags: ["Posts"]
+      invalidatesTags: ["Posts"],
     }),
     updatePost: builder.mutation({
       query: (body) => ({
         url: `posts/${body?.id}`,
-        mode: 'cors',
+        mode: "cors",
         method: "patch",
         body,
       }),
+      invalidatesTags: ["Posts"],
     }),
     deletePost: builder.mutation({
       query: ({ id }) => ({
         url: `posts/${id}`,
         method: "delete",
       }),
+      invalidatesTags: ["Posts"],
     }),
 
     addComment: builder.mutation({
       query: (body) => ({
-          url: `posts/${body?.id}`,
-          method: 'put',
-          body
-      })
-    })
+        url: `posts/${body?.id}`,
+        method: "put",
+        body,
+      }),
+    }),
   }),
 });
 

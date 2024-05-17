@@ -59,7 +59,7 @@ export const AddPostModal = ({ setAddPostModal }) => {
     console.log(error);
   }
   return (
-    <Modal show={setAddPostModal}>
+    <Modal show={setAddPostModal} width={"sm:w-full lg:w-7/12 mx-5"}>
       <h2 className="text-4xl text-center text-slate-600 my-8">Add new post</h2>
       <form
         onSubmit={handleSubmit}

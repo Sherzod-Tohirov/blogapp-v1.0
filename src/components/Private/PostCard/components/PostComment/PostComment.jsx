@@ -230,7 +230,7 @@ export function PostComment({ comment, data }) {
       exit={{ opacity: 0 }}
     >
       <img
-        className="rounded-full w-8 h-8 object-contain"
+        className="rounded-full sm:w-8 sm:h-8 lg:w-10 lg:h-10 object-contain"
         src={
           comment.user_id == me.id
             ? me.avatar || "../../../../public/default.webp"
@@ -260,7 +260,7 @@ export function PostComment({ comment, data }) {
             }}
             ref={bodyCommentRef}
             contentEditable={commentEditable}
-            className={`font-light text-slate-950 ${commentEditable ? "border-2 p-1 border-slate-500 rounded-md max-w-[100%] break-words" : ""}`}
+            className={`font-light text-slate-950 lg:text-lg ${commentEditable ? "border-2 p-1 border-slate-500 rounded-md max-w-[100%] break-words" : ""}`}
           >
             {comment.body}
           </p>
@@ -331,7 +331,7 @@ export function PostComment({ comment, data }) {
                     <div className={"flex"}>
                       <div className="relative flex">
                         <img
-                          className="rounded-full w-8 h-8 object-contain"
+                          className="rounded-full sm:w-8 sm:h-8 lg:w-10 lg:h-10 object-contain"
                           src={me?.avatar || "../../../../public/default.webp"}
                           alt="Image"
                         />
@@ -346,7 +346,7 @@ export function PostComment({ comment, data }) {
                         >
                           <textarea
                             {...register("reply_comment")}
-                            className={`w-full min-h-[70px] max-h-[150px] p-2 font-medium border rounded-sm ${
+                            className={`w-full min-h-[70px] max-h-[150px] p-2 font-medium border lg:text-lg rounded-sm ${
                               isError ? "border-red-400" : "border-slate-400"
                             }`}
                             placeholder="Reply here..."
@@ -396,7 +396,7 @@ export function PostComment({ comment, data }) {
                           ) : (
                             <motion.li
                               className={
-                                "text-slate-300 select-none opacity-65"
+                                "text-slate-300 select-none opacity-65 lg:text-xl"
                               }
                             >
                               No replies yet #
