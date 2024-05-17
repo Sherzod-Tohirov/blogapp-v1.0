@@ -107,7 +107,7 @@ export function ReplyComment({ reply, comment, data, seeReplies }) {
       exit={{ opacity: 0 }}
     >
       <img
-        className="rounded-full w-8 h-8 object-contain"
+        className="rounded-full sm:w-6 sm:h-6 lg:w-8 lg:h-8 object-contain"
         src={reply.user_avatar || "../../../../public/default.webp"}
         alt=""
       />

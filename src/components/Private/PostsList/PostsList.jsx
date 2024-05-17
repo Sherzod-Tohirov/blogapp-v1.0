@@ -17,7 +17,7 @@ export const PostsList = ({ children }) => {
       variants={container}
       initial="hidden"
       animate="visible"
-      className="flex flex-wrap justify-center gap-6 p-10 list-none"
+      className="flex sm:flex-col lg:flex-row lg:flex-wrap sm:items-stretch lg:items-start justify-center gap-6 lg:p-8 list-none w-full"
     >
       {children}
     </motion.ul>

@@ -22,6 +22,7 @@ import {
 import { userCommentSchema } from "./utils";
 import { notificationContext } from "../../../context/notificationContext";
 import { PostComment } from "./components/PostComment/index.js";
+import { tokenContext } from "../../../context/tokenContext.jsx";
 export const PostCard = ({ data }) => {
   const { me } = useContext(meContext);
   const { setMsg } = useContext(notificationContext);
@@ -37,6 +38,7 @@ export const PostCard = ({ data }) => {
   const post = useGetPostByIdQuery(data?.id);
   const [liked, setLiked] = useState(false);
   const [unliked, setUnliked] = useState(false);
+  const { token } = useContext(tokenContext);
   const [showComments, setShowComments] = useState(false);
   const [showActionBtns, setShowActionBtns] = useState(true);
   const [mutation, { isLoading: addCommentLoading, isError: addCommentError }] =
@@ -54,13 +56,13 @@ export const PostCard = ({ data }) => {
       setUnliked(true);
     }
   }, []);
-  useEffect(() => {
-    if (scalePostImage) {
-      animate(scope.current, { scale: 4, x: 400, y: 100 });
-    } else {
-      animate(scope.current, { scale: 1, y: 0, x: 0 });
-    }
-  }, [scalePostImage]);
+  // useEffect(() => {
+  //   if (scalePostImage) {
+  //     animate(scope.current, { scale: 4, x: 400, y: 100 });
+  //   } else {
+  //     animate(scope.current, { scale: 1, y: 0, x: 0 });
+  //   }
+  // }, [scalePostImage]);
   const [
     editPost,
     { isSuccess: editSuccess, isError: editIsError, error: editError },
@@ -202,53 +204,48 @@ export const PostCard = ({ data }) => {
   return (
     <AnimatePresence>
       <motion.li
-        // layout
-        // layoutId="underline"
-        // transition={{
-        //   type: "spring",
-        //   stiffness: 800,
-        //   bounceStiffness: 100,
-        //   duration: 0.2,
-        // }}
         variants={item}
-        className="sm:w-full p-8 shadow-md shadow-slate-500 rounded-md flex flex-col transition"
+        className="lg:p-8 sm:p-2 shadow-md shadow-slate-500 rounded-md flex flex-col transition"
         ref={itemRef}
       >
-        <div className="flex items-start">
-          {scalePostImage ? (
-            <div
-              className={"overlay"}
-              onClick={() => setScalePostImage(false)}
-            ></div>
-          ) : (
-            ""
-          )}
-          <div className={"relative z-40"} ref={scope}>
+        <div className="flex sm:items-center lg:items-start sm:flex-col sm:gap-5 lg:gap-10">
+          {/*{scalePostImage ? (*/}
+          {/*  <div*/}
+          {/*    className={"overlay"}*/}
+          {/*    onClick={() => setScalePostImage(false)}*/}
+          {/*  ></div>*/}
+          {/*) : (*/}
+          {/*  ""*/}
+          {/*)}*/}
+          <div className={"relative z-10"} ref={scope}>
             <motion.img
               src={data?.image || "../../../../public/react.png"}
               onClick={() => setScalePostImage((p) => !p)}
-              className={`object-contain rounded-md flex-shrink-0 cursor-pointer `}
-              width={250}
+              className={`object-contain rounded-md flex-shrink-0 cursor-pointer sm:w-full `}
             />
-            {scalePostImage ? (
-              <button
-                className={
-                  "flex items-center justify-center p-[2px] rounded-full bg-white text-black absolute top-[-15px] right-[-8px]"
-                }
-                onClick={() => setScalePostImage(false)}
-              >
-                {" "}
-                <IoClose size={9} />
-              </button>
-            ) : (
-              ""
-            )}
+            {/*{scalePostImage ? (*/}
+            {/*  <button*/}
+            {/*    className={*/}
+            {/*      "flex items-center justify-center p-[2px] rounded-full bg-white text-black absolute top-[-15px] right-[-8px]"*/}
+            {/*    }*/}
+            {/*    onClick={() => setScalePostImage(false)}*/}
+            {/*  >*/}
+            {/*    {" "}*/}
+            {/*    <IoClose size={9} />*/}
+            {/*  </button>*/}
+            {/*) : (*/}
+            {/*  ""*/}
+            {/*)}*/}
           </div>
-          <div className="flex flex-col px-5 w-full">
-            <h3 className="text-slate-800 text-3xl mb-3">{data?.title}</h3>
-            <p className="text-slate-600 mb-8 text-lg md:pr-10">{data?.body}</p>
+          <div className="flex flex-col px-5 gap-4 w-full sm:items-center lg:items-start">
+            <h3 className="text-slate-800 sm:text-2xl lg:text-4xl mb-3">
+              {data?.title}
+            </h3>
+            <p className="text-slate-500 mb-8 lg:text-[22px] md:text-xl lg:pr-10 sm:text-justify sm:text-sm font-light tracking-wide">
+              {data?.body}
+            </p>
             <div className="flex flex-col mb-5">
-              <p className="text-slate-600 font-medium flex items-center gap-2 mb-2">
+              <p className="text-slate-600 font-medium flex items-center gap-2 mb-2 lg:text-xl">
                 <span className="font-semibold text-black mr-2">
                   Posted by:
                 </span>{" "}
@@ -267,155 +264,171 @@ export const PostCard = ({ data }) => {
                 }`}
               </p>
               <time
-                className="flex items-center gap-2 font-medium font-mono text-slate-600"
+                className="flex items-center gap-2 font-medium font-mono text-slate-600 lg:text-xl"
                 dateTime="00:00"
               >
                 <CiCalendar className="text-xl" />
                 {data?.date}
               </time>
             </div>
-            <div className="flex items-center gap-3">
-              <button
-                className={`flex items-center gap-1 text-lg font-medium hover:opacity-75 transition`}
-                title="positive feedback"
-                onClick={handleLike}
-              >
-                {liked ? (
-                  <FaThumbsUp
-                    id="thumbsup-btn"
-                    data-id={post.isSuccess && post.data.id}
-                  />
-                ) : (
-                  <FaRegThumbsUp
-                    id="thumbsup-btn"
-                    data-id={post.isSuccess && post.data.id}
-                  />
-                )}
-                {post?.isSuccess && post?.data?.likes?.length
-                  ? post.data.likes.length
-                  : 0}
-              </button>
-              <button
-                className={`flex items-center gap-1 text-lg font-medium hover:opacity-75 transition`}
-                title="negative feedback"
-                onClick={handleUnlike}
-              >
-                {unliked ? (
-                  <FaThumbsDown
-                    id="thumbsdown-btn"
-                    data-id={post.isSuccess && post.data.id}
-                  />
-                ) : (
-                  <FaRegThumbsDown
-                    id="thumbsdown-btn"
-                    data-id={post.isSuccess && post.data.id}
-                  />
-                )}
-                {post?.isSuccess ? post?.data?.dislikes?.length || 0 : ""}
-              </button>
-              <motion.button
-                className="flex items-center gap-1 text-lg font-medium"
-                onClick={handleComment}
-                whileTap={{ scale: 0.89 }}
-                title="write comment"
-              >
-                {showComments ? <FaComment /> : <FaRegComment />}{" "}
-                {post?.isSuccess && (post?.data?.comments?.length || 0)}
-              </motion.button>
-            </div>
-            {showComments ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex flex-col py-5 gap-8"
-              >
-                <div className="flex">
-                  <div className="flex items-start gap-3 w-full">
-                    <div className="relative flex">
-                      <img
-                        className="rounded-full w-8 h-8 object-contain"
-                        src={me?.avatar || "../../../../public/default.webp"}
-                        alt="Image"
-                      />
-                      <span className="absolute z-10 flex w-2 h-2 rounded-full  bg-green-400 bottom-0 right-0"></span>
-                    </div>
-                    <div className="flex flex-col gap-8 w-full">
-                      <form
-                        className="flex flex-col gap-4"
-                        onSubmit={handleSubmit(onCommentSubmit)}
-                      >
-                        <textarea
-                          {...register("user_comment")}
-                          className={`w-full min-h-[70px] max-h-[150px] p-2 font-medium border rounded-sm ${
-                            isError ? "border-red-400" : "border-slate-400"
-                          }`}
-                          placeholder="Write your comment..."
-                          onFocus={() => setShowActionBtns(true)}
-                        ></textarea>
-                        {showActionBtns ? (
+            {token ? (
+              <div className="flex items-center gap-3">
+                <button
+                  className={`flex items-center gap-1 sm:text-lg lg:text-xl  font-medium hover:opacity-75 transition`}
+                  title="positive feedback"
+                  onClick={handleLike}
+                >
+                  {liked ? (
+                    <FaThumbsUp
+                      id="thumbsup-btn"
+                      data-id={post.isSuccess && post.data.id}
+                    />
+                  ) : (
+                    <FaRegThumbsUp
+                      id="thumbsup-btn"
+                      data-id={post.isSuccess && post.data.id}
+                    />
+                  )}
+                  {post?.isSuccess && post?.data?.likes?.length
+                    ? post.data.likes.length
+                    : 0}
+                </button>
+                <button
+                  className={`flex items-center gap-1 sm:text-lg lg:text-xl font-medium hover:opacity-75 transition`}
+                  title="negative feedback"
+                  onClick={handleUnlike}
+                >
+                  {unliked ? (
+                    <FaThumbsDown
+                      id="thumbsdown-btn"
+                      data-id={post.isSuccess && post.data.id}
+                    />
+                  ) : (
+                    <FaRegThumbsDown
+                      id="thumbsdown-btn"
+                      data-id={post.isSuccess && post.data.id}
+                    />
+                  )}
+                  {post?.isSuccess ? post?.data?.dislikes?.length || 0 : ""}
+                </button>
+                <motion.button
+                  className="flex items-center gap-1 sm:text-lg lg:text-xl  font-medium"
+                  onClick={handleComment}
+                  whileTap={{ scale: 0.89 }}
+                  title="write comment"
+                >
+                  {showComments ? <FaComment /> : <FaRegComment />}{" "}
+                  {post?.isSuccess && (post?.data?.comments?.length || 0)}
+                </motion.button>
+              </div>
+            ) : (
+              ""
+            )}
+            {token ? (
+              <div className={"lg:w-full"}>
+                {showComments ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex flex-col py-5 gap-8 w-full"
+                  >
+                    <div className="flex">
+                      <div className="flex items-start gap-3 w-full">
+                        <div className="relative flex">
+                          <img
+                            className="rounded-full sm:w-8 sm:h-8 lg:w-12 lg:h-12 object-contain"
+                            src={
+                              me?.avatar || "../../../../public/default.webp"
+                            }
+                            alt="Image"
+                          />
+                          <span className="absolute z-10 flex sm:w-2 sm:h-2 rounded-full  bg-green-400 bottom-0 right-0"></span>
+                        </div>
+                        <div className="flex flex-col gap-8 w-full">
+                          <form
+                            className="flex flex-col gap-4"
+                            onSubmit={handleSubmit(onCommentSubmit)}
+                          >
+                            <textarea
+                              {...register("user_comment")}
+                              className={`w-full min-h-[70px] max-h-[150px] p-2 font-medium lg:text-lg border rounded-sm ${
+                                isError ? "border-red-400" : "border-slate-400"
+                              }`}
+                              placeholder="Write your comment..."
+                              onFocus={() => setShowActionBtns(true)}
+                            ></textarea>
+                            {showActionBtns ? (
+                              <AnimatePresence>
+                                <motion.div className="flex items-center gap-2 w-full">
+                                  <motion.button
+                                    type="submit"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="bg-blue-500 text-white rounded-md p-1 px-3"
+                                  >
+                                    Send
+                                  </motion.button>
+                                  <motion.button
+                                    type="button"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="bg-red-400 text-white rounded-md p-1 px-3"
+                                    onClick={() => setShowActionBtns(false)}
+                                  >
+                                    Cancel
+                                  </motion.button>
+                                </motion.div>
+                              </AnimatePresence>
+                            ) : (
+                              ""
+                            )}
+                          </form>
                           <AnimatePresence>
-                            <motion.div className="flex items-center gap-2 w-full">
-                              <motion.button
-                                type="submit"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                className="bg-blue-500 text-white rounded-md p-1 px-3"
-                              >
-                                Send
-                              </motion.button>
-                              <motion.button
-                                type="button"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                className="bg-red-400 text-white rounded-md p-1 px-3"
-                                onClick={() => setShowActionBtns(false)}
-                              >
-                                Cancel
-                              </motion.button>
-                            </motion.div>
+                            <ul className="list-unstyled flex flex-col gap-6">
+                              {data?.comments?.length ? (
+                                data?.comments.map((comment) => (
+                                  <PostComment
+                                    key={comment.id}
+                                    comment={comment}
+                                    data={data}
+                                  />
+                                ))
+                              ) : (
+                                <li className="text-lg font-mono select-none opacity-50">
+                                  No comments yet #
+                                </li>
+                              )}
+                            </ul>
                           </AnimatePresence>
-                        ) : (
-                          ""
-                        )}
-                      </form>
-                      <AnimatePresence>
-                        <ul className="list-unstyled flex flex-col gap-6">
-                          {data?.comments?.length ? (
-                            data?.comments.map((comment) => (
-                              <PostComment
-                                key={comment.id}
-                                comment={comment}
-                                data={data}
-                              />
-                            ))
-                          ) : (
-                            <li className="text-lg font-mono select-none opacity-50">
-                              No comments yet #
-                            </li>
-                          )}
-                        </ul>
-                      </AnimatePresence>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </motion.div>
+                  </motion.div>
+                ) : (
+                  ""
+                )}
+              </div>
             ) : (
               ""
             )}
           </div>
         </div>
-        <div className="flex justify-center">
-          <button
-            className="text-lg text-slate-600 flex items-center gap-2"
-            onClick={() => setShowComments((prev) => !prev)}
-          >
-            {showComments ? <IoIosArrowUp /> : <IoIosArrowDown />}
-            Show {showComments ? "less" : "more"}
-          </button>
-        </div>
+        {token ? (
+          <div className="flex justify-center">
+            <button
+              className="sm:text-lg lg:text-xl text-slate-600 flex items-center gap-2"
+              onClick={() => setShowComments((prev) => !prev)}
+            >
+              {showComments ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              Show {showComments ? "less" : "more"}
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
       </motion.li>
     </AnimatePresence>
   );
